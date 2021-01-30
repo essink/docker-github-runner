@@ -43,9 +43,14 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
         gettext \
         liblttng-ust0 \
         libcurl4-openssl-dev \
+        wget \
         openssh-client && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get clean
+
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh &&\
+    bash ~/miniconda.sh -b -p ~/miniconda && \
+    rm ~/miniconda.sh
 
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN chmod 644 /etc/supervisor/conf.d/supervisord.conf
